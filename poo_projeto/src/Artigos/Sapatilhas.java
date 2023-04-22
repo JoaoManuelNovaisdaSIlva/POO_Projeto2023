@@ -1,3 +1,6 @@
+package Artigos;
+
+import java.util.Objects;
 
 public class Sapatilhas extends Artigos{
     private int shoeSize;
@@ -5,8 +8,8 @@ public class Sapatilhas extends Artigos{
     private String color;
     private int collectionYear;
 
-    public Sapatilhas(boolean used, int state, int numUsers, int size, boolean laces, String colour, int year){
-        super(used, state, numUsers);
+    public Sapatilhas(boolean used, String desc, float price, float discount, int state, int numUsers, int size, boolean laces, String colour, int year){
+        super(used, desc, price, discount, state, numUsers);
         this.shoeSize = size;
         this.hasLaces = laces;
         this.color = colour;
@@ -19,7 +22,6 @@ public class Sapatilhas extends Artigos{
         this.hasLaces = s.hasLaces;
         this.color = s.color;
         this.collectionYear = s.collectionYear;
-
     }
 
     public int getShoeSize() {
@@ -54,13 +56,20 @@ public class Sapatilhas extends Artigos{
         this.collectionYear = collectionYear;
     }
 
+    public void atualizaPrecoDesconto(Sapatilhas s, int currentYear){
+        if(s.getIsUsed()){
+            float newDiscount =  (s.getDicountPrice() + (s.getDicountPrice() + (s.getDicountPrice()*0.05f*(currentYear-s.collectionYear))));
+            if(newDiscount > s.getPrice()) return;
+            else s.setDicountPrice(newDiscount);
+        } else if (s.getDicountPrice() > 0) s.setDicountPrice(0);
+    }
+    @Override
     public Sapatilhas clone(){
-        Sapatilhas clone = (Sapatilhas) super.clone();
         return new Sapatilhas(this);
     }
-
+    @Override
     public String toString(){
-        return "Sapatilha de tamanho: " + shoeSize + " Com atacadores: " + hasLaces + " De cor: " + color + " Da coleção do ano: " + collectionYear;
+        return "Sapatilha de Tamanho: " + shoeSize + "; Com atacadores: " + hasLaces + "; Cor: " + color + "; Coleção do ano: " + collectionYear;
     }
 
     public boolean equals(Object o){
@@ -68,6 +77,7 @@ public class Sapatilhas extends Artigos{
 
         if(o == null || o.getClass() != this.getClass()) return false;
 
-        return this.shoeSize == ((Sapatilhas) o).shoeSize && this.hasLaces == ((Sapatilhas) o).hasLaces && this.color == ((Sapatilhas) o).color && this.collectionYear == ((Sapatilhas) o).collectionYear;
+        return this.shoeSize == ((Sapatilhas) o).shoeSize && this.hasLaces == ((Sapatilhas) o).hasLaces
+                && Objects.equals(this.color, ((Sapatilhas) o).color) && this.collectionYear == ((Sapatilhas) o).collectionYear;
     }
 }
