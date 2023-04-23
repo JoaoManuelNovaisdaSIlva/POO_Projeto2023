@@ -58,10 +58,10 @@ public class Sapatilhas extends Artigos{
 
     public void atualizaPrecoDesconto(Sapatilhas s, int currentYear){
         if(s.getIsUsed()){
-            float newDiscount =  (s.getDicountPrice() + (s.getDicountPrice() + (s.getDicountPrice()*0.05f*(currentYear-s.collectionYear))));
+            float newDiscount = (s.getDicountPrice() + (s.getDicountPrice()*0.05f*(currentYear-s.collectionYear)));
             if(newDiscount > s.getPrice()) return;
             else s.setDicountPrice(newDiscount);
-        } else if (s.getDicountPrice() > 0) s.setDicountPrice(0);
+        } else if (s.getIsUsed() && s.getDicountPrice() > s.getPrice()) s.setDicountPrice(0);
     }
     @Override
     public Sapatilhas clone(){
@@ -69,15 +69,15 @@ public class Sapatilhas extends Artigos{
     }
     @Override
     public String toString(){
-        return "Sapatilha de Tamanho: " + shoeSize + "; Com atacadores: " + hasLaces + "; Cor: " + color + "; Coleção do ano: " + collectionYear;
+        return super.toString() + "Sapatilha de Tamanho: " + shoeSize + "; Com atacadores: " + hasLaces + "; Cor: " + color + "; Coleção do ano: " + collectionYear;
     }
 
     public boolean equals(Object o){
         if(this == o) return true;
-
         if(o == null || o.getClass() != this.getClass()) return false;
+        if(!super.equals(o)) return false;
 
-        return this.shoeSize == ((Sapatilhas) o).shoeSize && this.hasLaces == ((Sapatilhas) o).hasLaces
-                && Objects.equals(this.color, ((Sapatilhas) o).color) && this.collectionYear == ((Sapatilhas) o).collectionYear;
+        Sapatilhas s = (Sapatilhas) o;
+        return this.shoeSize == s.shoeSize && this.hasLaces == s.hasLaces && this.color == s.color && this.collectionYear == s.collectionYear && super.equals(s);
     }
 }

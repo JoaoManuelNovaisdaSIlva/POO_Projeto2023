@@ -1,5 +1,7 @@
 package Artigos;
 
+import java.util.Objects;
+
 public class Malas extends Artigos{
     private int dimensions; // 1 - pequena, 2 - media, 3 - grande
     private String texture;
@@ -41,5 +43,22 @@ public class Malas extends Artigos{
 
     public void setCollectionYear(int collectionYear) {
         this.collectionYear = collectionYear;
+    }
+    @Override
+    public Malas clone(){
+        return new Malas(this);
+    }
+    @Override
+    public String toString(){
+        return super.toString() + "; Dimensão da Mala: " + dimensions + "; Textura: " + texture + "; Ano de coleção: " + collectionYear;
+    }
+
+    public boolean equals(Object o){
+        if(this == o) return true;
+        if(o == null || o.getClass() != this.getClass()) return false;
+
+        if(!super.equals(o)) return false;
+        Malas m = (Malas) o;
+        return this.dimensions == m.dimensions && Objects.equals(this.texture, m.texture) && this.collectionYear == m.collectionYear && super.equals(m);
     }
 }

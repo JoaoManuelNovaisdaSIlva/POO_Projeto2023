@@ -1,5 +1,7 @@
 package Artigos;
 
+import java.util.Objects;
+
 public class TShirst extends Artigos{
     private String size;
     private String pattern;
@@ -30,5 +32,23 @@ public class TShirst extends Artigos{
 
     public void setPattern(String pattern) {
         this.pattern = pattern;
+    }
+    @Override
+    public TShirst clone(){
+        return new TShirst(this);
+    }
+    @Override
+    public String toString(){
+        return super.toString() + "; T-shirt de tamanho: " + size + "; Padrão: " + pattern;
+    }
+
+    public boolean equals(Object o){
+        if(this == o) return true;
+        if(o == null || o.getClass() != this.getClass()) return false;
+
+        if(!super.equals(o)) return false;
+        TShirst t = (TShirst) o;
+
+        return Objects.equals(this.size, t.size) && Objects.equals(this.pattern, t.pattern) && super.equals(t);
     }
 }

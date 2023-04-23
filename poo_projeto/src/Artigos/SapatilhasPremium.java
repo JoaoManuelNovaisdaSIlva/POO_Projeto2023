@@ -1,5 +1,7 @@
 package Artigos;
 
+import java.util.Objects;
+
 public class SapatilhasPremium extends Sapatilhas{
     private String authors;
 
@@ -24,5 +26,22 @@ public class SapatilhasPremium extends Sapatilhas{
     public void atualizarPrecoSapatilhasPremium(SapatilhasPremium s, int currentYear){
         float newPrice = (s.getPrice() + (s.getPrice()*0.10f*(currentYear- s.getCollectionYear())));
         s.setPrice(newPrice);
+    }
+    @Override
+    public SapatilhasPremium clone(){
+        return new SapatilhasPremium(this);
+    }
+    @Override
+    public String toString(){
+        return super.toString() + "; Sapatilha premium com autor: " + authors;
+    }
+
+    public boolean equals(Object o){
+        if(this == o) return true;
+        if(o == null || o.getClass() != this.getClass()) return false;
+        if(!super.equals(o)) return false;
+
+        SapatilhasPremium s = (SapatilhasPremium) o;
+        return Objects.equals(this.authors, s.authors) && super.equals(s);
     }
 }

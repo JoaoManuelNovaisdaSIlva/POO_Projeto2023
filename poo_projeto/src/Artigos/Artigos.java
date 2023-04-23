@@ -90,13 +90,13 @@ public class Artigos {
     public void setDicountPrice(float dicountPrice) {
         this.discountPrice = dicountPrice;
     }
-
+    @Override
     public Artigos clone(){
         return new Artigos(this);
     }
-
+    @Override
     public String toString(){
-        return "Artigo é: " + isUsed + "; Descrição: " + description + "; Código de barras: " + barCode + "; Preço: " + price + "; Preço com desconto: " + discountPrice + "; Estado: " + usedState + "; Número de Utilizadores:  " + numOfUsers;
+        return "{Artigo é usado: " + isUsed + ";\nDescrição: " + description + ";\nCódigo de barras: " + barCode + ";\nPreço: " + price + ";\nPreço com desconto: " + discountPrice + ";\nEstado: " + usedState + ";\nNúmero de Utilizadores:  " + numOfUsers + "}";
     }
 
     public boolean equals(Object o){

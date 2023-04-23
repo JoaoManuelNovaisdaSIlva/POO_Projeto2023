@@ -1,5 +1,7 @@
 package Artigos;
 
+import java.util.Objects;
+
 public class MalasPremium extends Malas{
     private String author;
 
@@ -31,5 +33,22 @@ public class MalasPremium extends Malas{
             newPrice = (m.getPrice() + (m.getPrice()*0.20f*(currentYear- m.getCollectionYear())));
         }
         m.setPrice(newPrice);
+    }
+    @Override
+    public MalasPremium clone(){
+        return new MalasPremium(this);
+    }
+    @Override
+    public String toString(){
+        return super.toString() + "; Mala premium com autor: " + author;
+    }
+
+    public boolean equals(Object o){
+        if(this == o) return true;
+        if(o == null || o.getClass() != this.getClass()) return false;
+        if(!super.equals(o)) return false;
+
+        MalasPremium m = (MalasPremium) o;
+        return Objects.equals(this.author, m.author) && super.equals(m);
     }
 }
