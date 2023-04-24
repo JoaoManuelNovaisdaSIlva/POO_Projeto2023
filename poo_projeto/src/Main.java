@@ -29,9 +29,9 @@ public class Main {
         //s4.setPrice(0.00f); Apenas para verificar se o super.equals() funciona na definição da equals(Object o)
         System.out.println(s1.equals(s4));
         Sapatilhas s5 = new Sapatilhas(true, "Sapatilha para desconto", 30.00f, 4.99f, 2, 1, 40, true, "Yellow", 2021);
-        System.out.println(s5);
-        s5.atualizaPrecoDesconto(s5, 2024);
-        System.out.println("NOVO PREÇO DO DESCONTO: " + s5); // ALGUNS BUGS AQUI NO ATUALIZA DESCONTO
+        System.out.println("S111111111111:" + s1);
+        s5.atualizaPrecoDesconto(s1, 2024);
+        System.out.println("NOVO PREÇO DO DESCONTO: " + s1); // ALGUNS BUGS AQUI NO ATUALIZA DESCONTO
 
         TShirst t1 = new TShirst(true, "Tshirt fraca velha", 5.30f, 1.99f, 1, 3, "L", "liso");
         System.out.println(t1);
@@ -47,5 +47,20 @@ public class Main {
         System.out.println(sp1);
         sp1.atualizarPrecoSapatilhasPremium(sp1, 2024);
         System.out.println(sp1);
+
+        MalasPremium mp1 = new MalasPremium(true, "Mala xique", 400.00f, 20.00f, 3, 0, 3, "pele de corcodilo", 2023, "Gavenci");
+        System.out.println(mp1);
+        mp1.atualizaPrecoMalasPremium(mp1, 2030);
+        System.out.println(mp1);
+
+        System.out.println("Arraylist de artigos!!!!!!!!!");
+        ArrayList<Artigos> lista1 = new ArrayList<>();
+        lista1.add(s1);
+        lista1.add(t1);
+        lista1.add(m1);
+        lista1.add(sp1);
+        lista1.add(mp1);
+        System.out.println(lista1);
+
     }
 }

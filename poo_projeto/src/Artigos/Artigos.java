@@ -98,7 +98,7 @@ public class Artigos {
     public String toString(){
         return "{Artigo é usado: " + isUsed + ";\nDescrição: " + description + ";\nCódigo de barras: " + barCode + ";\nPreço: " + price + ";\nPreço com desconto: " + discountPrice + ";\nEstado: " + usedState + ";\nNúmero de Utilizadores:  " + numOfUsers + "}";
     }
-
+    @Override
     public boolean equals(Object o){
         if(this == o) return true;
 

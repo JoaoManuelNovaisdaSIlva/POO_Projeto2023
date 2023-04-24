@@ -59,9 +59,9 @@ public class Sapatilhas extends Artigos{
     public void atualizaPrecoDesconto(Sapatilhas s, int currentYear){
         if(s.getIsUsed()){
             float newDiscount = (s.getDicountPrice() + (s.getDicountPrice()*0.05f*(currentYear-s.collectionYear)));
-            if(newDiscount > s.getPrice()) return;
+            if(newDiscount > s.getPrice()) System.out.println("As sapatilhas não podem ter mais disconto!");
             else s.setDicountPrice(newDiscount);
-        } else if (s.getIsUsed() && s.getDicountPrice() > s.getPrice()) s.setDicountPrice(0);
+        }else System.out.println("O artigo não é usado logo não aumenta o desconto");
     }
     @Override
     public Sapatilhas clone(){
