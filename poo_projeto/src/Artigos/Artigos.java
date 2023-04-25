@@ -8,10 +8,10 @@ public class Artigos {
     private String barCode;
     private float price;
     private float discountPrice;
-    private int usedState; // 1 - Fraco estado, 2 - Medio estado, 3 - Bom estado
+    private Estado usedState;
     private int numOfUsers;
 
-    public Artigos(boolean used, String desc, float price, float discount, int state, int numUsers){
+    public Artigos(boolean used, String desc, float price, float discount, Estado state, int numUsers){
         this.isUsed = used;
         this.description = desc;
         this.barCode = Integer.toString(this.hashCode()); // Gerar uma string unica a partir do hascode do objeto
@@ -43,11 +43,11 @@ public class Artigos {
         this.isUsed = u;
     }
 
-    public int getUsedState(){
+    public Estado getUsedState(){
         return this.usedState;
     }
 
-    public void setUsedState(int u){
+    public void setUsedState(Estado u){
         this.usedState = u;
     }
 

@@ -1,13 +1,15 @@
 package Artigos;
 
+import Encomendas.Dimenssao;
+
 import java.util.Objects;
 
 public class Malas extends Artigos{
-    private int dimensions; // 1 - pequena, 2 - media, 3 - grande
+    private Dimenssao dimensions; // 1 - pequena, 2 - media, 3 - grande
     private String texture;
     private int collectionYear;
 
-    public Malas(boolean used, String desc, float price, float discount, int state, int numUsers, int dimensions, String texture, int collectionYear) {
+    public Malas(boolean used, String desc, float price, float discount, int state, int numUsers, Dimenssao dimensions, String texture, int collectionYear) {
         super(used, desc, price, discount, state, numUsers);
         this.dimensions = dimensions;
         this.texture = texture;
@@ -21,11 +23,11 @@ public class Malas extends Artigos{
         this.collectionYear = a.collectionYear;
     }
 
-    public int getDimensions() {
+    public Dimenssao getDimensions() {
         return dimensions;
     }
 
-    public void setDimensions(int dimensions) {
+    public void setDimensions(Dimenssao dimensions) {
         this.dimensions = dimensions;
     }
 

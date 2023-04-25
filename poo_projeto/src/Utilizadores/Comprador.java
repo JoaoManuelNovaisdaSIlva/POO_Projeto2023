@@ -12,6 +12,10 @@ public class Comprador extends Utilizador{
         this.comprados = new ArrayList<>();
     }
 
+    public Comprador(Utilizador u, ArrayList<Artigos> comprados){
+        super(u);
+        this.comprados = new ArrayList<>(comprados);
+    }
     public Comprador(String email, String nome, String morada, int nif, ArrayList<Artigos> comprados) {
         super(email, nome, morada, nif);
         this.comprados = new ArrayList<>(comprados);
@@ -28,6 +32,14 @@ public class Comprador extends Utilizador{
 
     public void setComprados(ArrayList<Artigos> comprados) {
         this.comprados = new ArrayList<>(comprados);
+    }
+
+    public void adicionarComprados(ArrayList<Artigos> compras){
+        this.comprados.addAll(compras);
+    }
+
+    public void removerComprados(ArrayList<Artigos> devolvidos){
+        this.comprados.removeAll(devolvidos);
     }
 
     public Utilizador clone(){

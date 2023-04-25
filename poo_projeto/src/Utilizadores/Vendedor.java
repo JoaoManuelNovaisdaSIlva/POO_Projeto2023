@@ -20,6 +20,11 @@ public class Vendedor extends Utilizador{
         this.vendidos = new ArrayList<>(vendidos);
     }
 
+    public Vendedor(Utilizador u, ArrayList<Artigos> venda, ArrayList<Artigos> vendidos){
+        super(u);
+        this.emVenda = new ArrayList<>(venda);
+        this.vendidos = new ArrayList<>(vendidos);
+    }
     public Vendedor(Vendedor u) {
         super(u);
         this.emVenda = new ArrayList<>(u.emVenda);
@@ -48,7 +53,7 @@ public class Vendedor extends Utilizador{
 
     @Override
     public String toString(){
-        return super.toString() + "Items em vande: " + emVenda + ";\nItems vendidos: " + vendidos;
+        return super.toString() + "Items em venda: " + emVenda + ";\nItems vendidos: " + vendidos;
     }
 
     @Override

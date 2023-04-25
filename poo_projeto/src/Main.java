@@ -1,4 +1,6 @@
 import Artigos.*;
+import Encomendas.Dimenssao;
+import Utilizadores.*;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -10,7 +12,7 @@ public class Main {
         //Artigos a1 = new Artigos()
         ArrayList<Sapatilhas> lista = new ArrayList<>();
         for(int i=0; i<100; i++){
-            Sapatilhas s2 = new Sapatilhas(false, "Sapatilha nova", 20.00f, 5.00f, 3, 0, i, true, "Black", 1800+i);
+            Sapatilhas s2 = new Sapatilhas(false, "Sapatilha nova", 20.00f, 5.00f, Estado.Bom, 0, i, true, "Black", 1800+i);
             for(Sapatilhas s : lista){
                 if(s2.getBarCode() == s.getBarCode()){
                     System.out.println("BAR CODES IGUAIS!!");
@@ -22,13 +24,13 @@ public class Main {
         //System.out.println(s1);
         System.out.println(lista);
 
-        Sapatilhas s1 = new Sapatilhas(false, "Sapatilha nova", 20.00f, 5.00f, 3, 0, 45, true, "Black", 2022);
-        Sapatilhas s3 = new Sapatilhas(false, "Sapatilha nova", 20.00f, 5.00f, 3, 0, 45, true, "Black", 2022);
+        Sapatilhas s1 = new Sapatilhas(false, "Sapatilha nova", 20.00f, 5.00f, Estado.Bom, 0, 45, true, "Black", 2022);
+        Sapatilhas s3 = new Sapatilhas(false, "Sapatilha nova", 20.00f, 5.00f, Estado.Bom, 0, 45, true, "Black", 2022);
         System.out.println(s1.equals(s3));
         Sapatilhas s4 = s1.clone();
         //s4.setPrice(0.00f); Apenas para verificar se o super.equals() funciona na definição da equals(Object o)
         System.out.println(s1.equals(s4));
-        Sapatilhas s5 = new Sapatilhas(true, "Sapatilha para desconto", 30.00f, 4.99f, 2, 1, 40, true, "Yellow", 2021);
+        Sapatilhas s5 = new Sapatilhas(true, "Sapatilha para desconto", 30.00f, 4.99f, Estado.Medio, 1, 40, true, "Yellow", 2021);
         System.out.println("S111111111111:" + s1);
         s5.atualizaPrecoDesconto(s1, 2024);
         System.out.println("NOVO PREÇO DO DESCONTO: " + s1); // ALGUNS BUGS AQUI NO ATUALIZA DESCONTO
@@ -38,7 +40,7 @@ public class Main {
         TShirst t2 = new TShirst(t1);
         System.out.println(t2);
 
-        Malas m1 = new Malas(true, "Mala alterna", 39.99f, 9.99f, 2, 1, 2, "pele", 2020);
+        Malas m1 = new Malas(true, "Mala alterna", 39.99f, 9.99f, 2, 1, Dimenssao.Medio, "pele", 2020);
         System.out.println(m1);
         Malas m2 = m1.clone();
         System.out.println(m1.equals(m2));
@@ -48,7 +50,7 @@ public class Main {
         sp1.atualizarPrecoSapatilhasPremium(sp1, 2024);
         System.out.println(sp1);
 
-        MalasPremium mp1 = new MalasPremium(true, "Mala xique", 400.00f, 20.00f, 3, 0, 3, "pele de corcodilo", 2023, "Gavenci");
+        MalasPremium mp1 = new MalasPremium(true, "Mala xique", 400.00f, 20.00f, 3, 0, Dimenssao.Grande, "pele de corcodilo", 2023, "Gavenci");
         System.out.println(mp1);
         mp1.atualizaPrecoMalasPremium(mp1, 2030);
         System.out.println(mp1);
@@ -61,6 +63,13 @@ public class Main {
         lista1.add(sp1);
         lista1.add(mp1);
         System.out.println(lista1);
+
+        Utilizador u1 = new Utilizador("jmns.2001@gmail.com", "João", "Rua", 999999999);
+        System.out.println(u1);
+        Comprador c1 = new Comprador(u1, lista1);
+        Vendedor v1 = new Vendedor(u1, lista1, lista1);
+        System.out.println("---------\n Comprador: " + c1);
+        System.out.println("---------\n Vendedores: " + v1);
 
     }
 }

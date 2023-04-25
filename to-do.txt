@@ -1,0 +1,12 @@
+POO projeto coisas para fazer:
+
+	. Passar 0,1,2 para enums; # FEITO
+	. As contas de descontos iniciais são feitas pelo sistema no menu (Sapatilhas novas não podem ter desconto);
+	. Quando um user criar conta, após criar a sua conta base (Objeto Utilizador), ainda precisa de configurar as suas contas de vendedor e comprador se quiser usufruir das suas opções
+	
+	. Na classe que vai juntar tudo -> ter Maps
+	. Nesta tb tem q haver um método que receba um barcode e devolva o artigo
+	. Definir variáveis globais do custo de expedição de cada tamanho de encomenda assim como os impostos
+
+
+- As entregadoras entregam a encomenda toda ou apenas os artigos?

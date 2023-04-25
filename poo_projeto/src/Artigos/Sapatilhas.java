@@ -8,7 +8,7 @@ public class Sapatilhas extends Artigos{
     private String color;
     private int collectionYear;
 
-    public Sapatilhas(boolean used, String desc, float price, float discount, int state, int numUsers, int size, boolean laces, String colour, int year){
+    public Sapatilhas(boolean used, String desc, float price, float discount, Estado state, int numUsers, int size, boolean laces, String colour, int year){
         super(used, desc, price, discount, state, numUsers);
         this.shoeSize = size;
         this.hasLaces = laces;

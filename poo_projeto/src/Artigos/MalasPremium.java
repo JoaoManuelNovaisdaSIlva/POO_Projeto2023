@@ -1,11 +1,13 @@
 package Artigos;
 
+import Encomendas.Dimenssao;
+
 import java.util.Objects;
 
 public class MalasPremium extends Malas{
     private String author;
 
-    public MalasPremium(boolean used, String desc, float price, float discount, int state, int numUsers, int dimensions, String texture, int collectionYear, String author) {
+    public MalasPremium(boolean used, String desc, float price, float discount, int state, int numUsers, Dimenssao dimensions, String texture, int collectionYear, String author) {
         super(used, desc, price, discount, state, numUsers, dimensions, texture, collectionYear);
         this.author = author;
     }
@@ -25,11 +27,11 @@ public class MalasPremium extends Malas{
 
     public void atualizaPrecoMalasPremium(MalasPremium m, int currentYear){
         float newPrice = m.getPrice();
-        if(m.getDimensions() == 1){
+        if(m.getDimensions() == Dimenssao.Pequeno){
             newPrice = (m.getPrice() + (m.getPrice()*0.05f*(currentYear- m.getCollectionYear())));
-        }else if (m.getDimensions() == 2){
+        }else if (m.getDimensions() == Dimenssao.Medio){
             newPrice = (m.getPrice() + (m.getPrice()*0.10f*(currentYear- m.getCollectionYear())));
-        }else if (m.getDimensions() == 3){
+        }else if (m.getDimensions() == Dimenssao.Grande){
             newPrice = (m.getPrice() + (m.getPrice()*0.20f*(currentYear- m.getCollectionYear())));
         }
         m.setPrice(newPrice);
