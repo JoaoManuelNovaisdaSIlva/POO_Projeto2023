@@ -1,16 +1,17 @@
 package Artigos;
 
 import Encomendas.Dimenssao;
+import Encomendas.Transportadora;
 
 import java.util.Objects;
 
 public class Malas extends Artigos{
     private Dimenssao dimensions; // 1 - pequena, 2 - media, 3 - grande
-    private String texture;
+    private TexturaMala texture;
     private int collectionYear;
 
-    public Malas(boolean used, String desc, float price, float discount, int state, int numUsers, Dimenssao dimensions, String texture, int collectionYear) {
-        super(used, desc, price, discount, state, numUsers);
+    public Malas(boolean used, String desc, float price, float discount, Estado state, int numUsers, Transportadora t, Dimenssao dimensions, TexturaMala texture, int collectionYear) {
+        super(used, desc, price, discount, state, numUsers, t);
         this.dimensions = dimensions;
         this.texture = texture;
         this.collectionYear = collectionYear;
@@ -31,11 +32,11 @@ public class Malas extends Artigos{
         this.dimensions = dimensions;
     }
 
-    public String getTexture() {
+    public TexturaMala getTexture() {
         return texture;
     }
 
-    public void setTexture(String texture) {
+    public void setTexture(TexturaMala texture) {
         this.texture = texture;
     }
 
@@ -45,6 +46,11 @@ public class Malas extends Artigos{
 
     public void setCollectionYear(int collectionYear) {
         this.collectionYear = collectionYear;
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(super.hashCode(),dimensions, texture, collectionYear);
     }
     @Override
     public Malas clone(){

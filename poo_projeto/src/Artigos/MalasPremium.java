@@ -1,14 +1,15 @@
 package Artigos;
 
 import Encomendas.Dimenssao;
+import Encomendas.TransportadoraPremium;
 
 import java.util.Objects;
 
 public class MalasPremium extends Malas{
     private String author;
 
-    public MalasPremium(boolean used, String desc, float price, float discount, int state, int numUsers, Dimenssao dimensions, String texture, int collectionYear, String author) {
-        super(used, desc, price, discount, state, numUsers, dimensions, texture, collectionYear);
+    public MalasPremium(boolean used, String desc, float price, float discount, Estado state, int numUsers, Dimenssao dimensions, TexturaMala texture, int collectionYear, TransportadoraPremium t, String author) {
+        super(used, desc, price, discount, state, numUsers, t, dimensions, texture, collectionYear);
         this.author = author;
     }
 
@@ -35,6 +36,11 @@ public class MalasPremium extends Malas{
             newPrice = (m.getPrice() + (m.getPrice()*0.20f*(currentYear- m.getCollectionYear())));
         }
         m.setPrice(newPrice);
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(super.hashCode(), author);
     }
     @Override
     public MalasPremium clone(){

@@ -9,4 +9,7 @@ POO projeto coisas para fazer:
 	. Definir variáveis globais do custo de expedição de cada tamanho de encomenda assim como os impostos
 
 
+	. Quando esta a ser definida uma entragadora esta pode escolher a formula default ou uma nova
+
 - As entregadoras entregam a encomenda toda ou apenas os artigos?
+- Ter a formula do preço de expediçao como static, para dps ser possivel mudar?

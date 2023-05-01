@@ -8,6 +8,12 @@ public class Vendedor extends Utilizador{
     private ArrayList<Artigos> emVenda;
     private ArrayList<Artigos> vendidos;
 
+    public Vendedor(){
+        super();
+        this.emVenda = new ArrayList<Artigos>();
+        this.vendidos = new ArrayList<Artigos>();
+    }
+
     public Vendedor(String email, String nome, String morada, int nif){
         super(email, nome, morada, nif);
         this.emVenda = new ArrayList<>();

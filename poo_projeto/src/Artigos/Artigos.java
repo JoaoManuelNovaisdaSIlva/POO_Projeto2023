@@ -1,5 +1,8 @@
 package Artigos;
 
+import Encomendas.Transportadora;
+
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Artigos {
@@ -10,8 +13,9 @@ public class Artigos {
     private float discountPrice;
     private Estado usedState;
     private int numOfUsers;
+    private Transportadora transportadoraAssociada;
 
-    public Artigos(boolean used, String desc, float price, float discount, Estado state, int numUsers){
+    public Artigos(boolean used, String desc, float price, float discount, Estado state, int numUsers, Transportadora t){
         this.isUsed = used;
         this.description = desc;
         this.barCode = Integer.toString(this.hashCode()); // Gerar uma string unica a partir do hascode do objeto
@@ -23,6 +27,7 @@ public class Artigos {
 
         this.usedState = state;
         this.numOfUsers = numUsers;
+        this.transportadoraAssociada = t;
     }
 
     public Artigos(Artigos a){
@@ -33,6 +38,7 @@ public class Artigos {
         this.discountPrice = a.discountPrice;
         this.usedState = a.usedState;
         this.numOfUsers = a.numOfUsers;
+        this.transportadoraAssociada = a.transportadoraAssociada;
     }
 
     public boolean getIsUsed(){
@@ -90,13 +96,26 @@ public class Artigos {
     public void setDicountPrice(float dicountPrice) {
         this.discountPrice = dicountPrice;
     }
+
+    public Transportadora getTransportadoraAssociada(){
+        return this.transportadoraAssociada;
+    }
+
+    public void setTransportadoraAssociada(Transportadora t){
+        this.transportadoraAssociada = t;
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(isUsed, description, barCode, price, discountPrice, usedState, numOfUsers, transportadoraAssociada);
+    }
     @Override
     public Artigos clone(){
         return new Artigos(this);
     }
     @Override
     public String toString(){
-        return "{Artigo é usado: " + isUsed + ";\nDescrição: " + description + ";\nCódigo de barras: " + barCode + ";\nPreço: " + price + ";\nPreço com desconto: " + discountPrice + ";\nEstado: " + usedState + ";\nNúmero de Utilizadores:  " + numOfUsers + "}";
+        return "{Artigo é usado: " + isUsed + ";\nDescrição: " + description + ";\nCódigo de barras: " + barCode + ";\nPreço: " + price + ";\nPreço com desconto: " + discountPrice + ";\nEstado: " + usedState + ";\nNúmero de Utilizadores:  " + numOfUsers + ";\nTransportadora: " + transportadoraAssociada + "}";
     }
     @Override
     public boolean equals(Object o){

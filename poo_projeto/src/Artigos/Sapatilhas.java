@@ -1,5 +1,7 @@
 package Artigos;
 
+import Encomendas.Transportadora;
+
 import java.util.Objects;
 
 public class Sapatilhas extends Artigos{
@@ -8,8 +10,8 @@ public class Sapatilhas extends Artigos{
     private String color;
     private int collectionYear;
 
-    public Sapatilhas(boolean used, String desc, float price, float discount, Estado state, int numUsers, int size, boolean laces, String colour, int year){
-        super(used, desc, price, discount, state, numUsers);
+    public Sapatilhas(boolean used, String desc, float price, float discount, Estado state, int numUsers, Transportadora t, int size, boolean laces, String colour, int year){
+        super(used, desc, price, discount, state, numUsers, t);
         this.shoeSize = size;
         this.hasLaces = laces;
         this.color = colour;
@@ -62,6 +64,11 @@ public class Sapatilhas extends Artigos{
             if(newDiscount > s.getPrice()) System.out.println("As sapatilhas não podem ter mais disconto!");
             else s.setDicountPrice(newDiscount);
         }else System.out.println("O artigo não é usado logo não aumenta o desconto");
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(super.hashCode(), shoeSize, hasLaces, color, collectionYear);
     }
     @Override
     public Sapatilhas clone(){

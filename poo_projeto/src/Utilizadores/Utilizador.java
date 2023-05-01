@@ -12,6 +12,15 @@ public class Utilizador {
     private String morada;
     private int nif;
 
+    public Utilizador(){
+        counter++;
+        this.id = counter;
+        this.email = "";
+        this.nome = "";
+        this.morada = "";
+        this.nif = 0;
+    }
+
     public Utilizador(String email, String nome, String morada, int nif){
         counter++;
         this.id = counter;

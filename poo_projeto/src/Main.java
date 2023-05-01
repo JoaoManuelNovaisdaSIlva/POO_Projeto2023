@@ -1,75 +1,68 @@
 import Artigos.*;
-import Encomendas.Dimenssao;
+import Encomendas.*;
 import Utilizadores.*;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
-
-        //Artigos a1 = new Artigos()
-        ArrayList<Sapatilhas> lista = new ArrayList<>();
-        for(int i=0; i<100; i++){
-            Sapatilhas s2 = new Sapatilhas(false, "Sapatilha nova", 20.00f, 5.00f, Estado.Bom, 0, i, true, "Black", 1800+i);
-            for(Sapatilhas s : lista){
-                if(s2.getBarCode() == s.getBarCode()){
-                    System.out.println("BAR CODES IGUAIS!!");
-                    return;
-                }
-            }
-            lista.add(s2);
-        }
-        //System.out.println(s1);
-        System.out.println(lista);
-
-        Sapatilhas s1 = new Sapatilhas(false, "Sapatilha nova", 20.00f, 5.00f, Estado.Bom, 0, 45, true, "Black", 2022);
-        Sapatilhas s3 = new Sapatilhas(false, "Sapatilha nova", 20.00f, 5.00f, Estado.Bom, 0, 45, true, "Black", 2022);
-        System.out.println(s1.equals(s3));
-        Sapatilhas s4 = s1.clone();
-        //s4.setPrice(0.00f); Apenas para verificar se o super.equals() funciona na definição da equals(Object o)
-        System.out.println(s1.equals(s4));
-        Sapatilhas s5 = new Sapatilhas(true, "Sapatilha para desconto", 30.00f, 4.99f, Estado.Medio, 1, 40, true, "Yellow", 2021);
-        System.out.println("S111111111111:" + s1);
-        s5.atualizaPrecoDesconto(s1, 2024);
-        System.out.println("NOVO PREÇO DO DESCONTO: " + s1); // ALGUNS BUGS AQUI NO ATUALIZA DESCONTO
-
-        TShirst t1 = new TShirst(true, "Tshirt fraca velha", 5.30f, 1.99f, 1, 3, "L", "liso");
-        System.out.println(t1);
-        TShirst t2 = new TShirst(t1);
-        System.out.println(t2);
-
-        Malas m1 = new Malas(true, "Mala alterna", 39.99f, 9.99f, 2, 1, Dimenssao.Medio, "pele", 2020);
-        System.out.println(m1);
-        Malas m2 = m1.clone();
-        System.out.println(m1.equals(m2));
-
-        SapatilhasPremium sp1 = new SapatilhasPremium(false, "Yezzies do kanye crazy", 200.00f, 0.00f, 3, 0, 50, false, "White", 2023, "Kanye Krazy");
-        System.out.println(sp1);
-        sp1.atualizarPrecoSapatilhasPremium(sp1, 2024);
-        System.out.println(sp1);
-
-        MalasPremium mp1 = new MalasPremium(true, "Mala xique", 400.00f, 20.00f, 3, 0, Dimenssao.Grande, "pele de corcodilo", 2023, "Gavenci");
-        System.out.println(mp1);
-        mp1.atualizaPrecoMalasPremium(mp1, 2030);
-        System.out.println(mp1);
-
-        System.out.println("Arraylist de artigos!!!!!!!!!");
         ArrayList<Artigos> lista1 = new ArrayList<>();
+        ArrayList<Artigos> lista2 = new ArrayList<>();
+
+        Transportadora trans1 = new Transportadora("CTT", 999999999, "ctt@ctt.pt", lista1, TipoFormula.Default, "");
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Deve introduzir a formula incluindo uma palavra 'preco' e outra 'imposto' (variaveis fixas)");
+        //String line = scanner.nextLine();
+        String line = "preco+(preco*imposto)+2";
+
+        Transportadora trans2 = new Transportadora("FEDEX", 888888888, "fedex@fedex.com", lista1, TipoFormula.Customized, line);
+
+        TransportadoraPremium transP1 = new TransportadoraPremium("CTT Premium", 777777777, "ctt@premium.ctt.pt", lista2, TipoFormula.Default, "", "");
+
+        System.out.println("Deve introduzir a formula incluindo uma palavra 'preco', outra 'imposto' e outra 'impostoPremium' (variaveis fixas)");
+        //String line2 = scanner.nextLine();
+        String line2 = "preco+(preco*imposto)+impostoPremium";
+        TransportadoraPremium transP2 = new TransportadoraPremium("FEDEX Premium", 666666666, "fedex@premium.fedex.com", lista2, TipoFormula.Customized, "", line2);
+
+        Sapatilhas s1 = new Sapatilhas(true, "Sapatilha isada", 10.00f, 3.00f, Estado.Medio, 2, trans1, 45, true, "white", 2017);
+        TShirst t1 = new TShirst(true, "Tshirt usada", 15.00f, 5.00f, Estado.Mau, 4, trans2, TamanhoTShirt.L, PadraoTShirt.Palmeiras);
+        Malas m1 = new Malas(false, "Mala nova", 50.00f, 10.00f, Estado.Bom, 0, trans2, Dimenssao.Medio, TexturaMala.Pele, 2018);
+        SapatilhasPremium sp1 = new SapatilhasPremium(false, "Yezzys", 200.00f, 30.00f, Estado.Bom, 0, transP1, 48, true, "Black", 2023, "YE");
+        MalasPremium mp1 = new MalasPremium(false, "Mala luis Viton", 400.00f, 20.00f, Estado.Bom, 0, Dimenssao.Grande, TexturaMala.Pele , 2023, transP2, "Pierre");
+
+        lista2.add(sp1);
+        lista2.add(mp1);
         lista1.add(s1);
         lista1.add(t1);
         lista1.add(m1);
-        lista1.add(sp1);
-        lista1.add(mp1);
-        System.out.println(lista1);
 
-        Utilizador u1 = new Utilizador("jmns.2001@gmail.com", "João", "Rua", 999999999);
-        System.out.println(u1);
-        Comprador c1 = new Comprador(u1, lista1);
-        Vendedor v1 = new Vendedor(u1, lista1, lista1);
-        System.out.println("---------\n Comprador: " + c1);
-        System.out.println("---------\n Vendedores: " + v1);
+        ArrayList<Artigos> enc = new ArrayList<>();
+        enc.add(sp1);
+        enc.add(s1);
+        enc.add(m1);
 
+        Comprador comp1 = new Comprador();
+
+        Encomenda e1 = new Encomenda(comp1, enc);
+        System.out.println("----------ENCOMENDA ORIGINAL------------");
+        System.out.println(e1);
+
+        e1.adicionaArtigoAEncomenda(s1);
+        System.out.println("----------ENCOMENDA ADICIONADA-----------");
+        System.out.println(e1);
+        e1.removeArtigoAEncomenda(s1);
+        System.out.println("---------------ENCOMENDA RETIRADA------------");
+        System.out.println(e1);
+
+        System.out.println("-------------PAGAR ENCOMENDA-----------");
+        //e1.setEstado(EstadoEncomenda.Expedida);
+        e1.pagarEncomenda();
+        System.out.println("Estado: " + e1.getEstado());
+        //System.out.println("Comprador: " + e1.getComprador());
+
+        e1.devolucao();
     }
 }

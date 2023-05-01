@@ -1,13 +1,15 @@
 package Artigos;
 
+import Encomendas.Transportadora;
+
 import java.util.Objects;
 
 public class TShirst extends Artigos{
-    private String size;
-    private String pattern;
+    private TamanhoTShirt size;
+    private PadraoTShirt pattern;
     // discout deve vir ja com o valor certo!!!!
-    public TShirst(boolean used, String desc, float price, float discount, int state, int numUsers, String size, String pattern) {
-        super(used, desc, price, discount, state, numUsers);
+    public TShirst(boolean used, String desc, float price, float discount, Estado state, int numUsers, Transportadora t, TamanhoTShirt size, PadraoTShirt pattern) {
+        super(used, desc, price, discount, state, numUsers, t);
         this.size = size;
         this.pattern = pattern;
     }
@@ -18,20 +20,25 @@ public class TShirst extends Artigos{
         this.pattern = a.pattern;
     }
 
-    public String getSize() {
+    public TamanhoTShirt getSize() {
         return size;
     }
 
-    public void setSize(String size) {
+    public void setSize(TamanhoTShirt size) {
         this.size = size;
     }
 
-    public String getPattern() {
+    public PadraoTShirt getPattern() {
         return pattern;
     }
 
-    public void setPattern(String pattern) {
+    public void setPattern(PadraoTShirt pattern) {
         this.pattern = pattern;
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(super.hashCode(), size, pattern);
     }
     @Override
     public TShirst clone(){
