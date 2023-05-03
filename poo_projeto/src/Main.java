@@ -1,13 +1,16 @@
 import Artigos.*;
 import Encomendas.*;
+import Sistema.Dados;
+import Sistema.Parser;
 import Utilizadores.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Objects;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         ArrayList<Artigos> lista1 = new ArrayList<>();
         ArrayList<Artigos> lista2 = new ArrayList<>();
 
@@ -64,5 +67,29 @@ public class Main {
         //System.out.println("Comprador: " + e1.getComprador());
 
         e1.devolucao();
+
+        HashMap<String,Transportadora> transportadoras = new HashMap<>();
+        HashMap<String,Utilizador> utilizadores = new HashMap<>();
+        HashMap<String, Artigos> artigos = new HashMap<>();
+        HashMap<String, Encomenda> encomendas = new HashMap<>();
+        int Tcounter=1;
+        int TPcounter=1;
+        int Ccounter=1;
+        transportadoras.put("Tranportadora-"+Tcounter, trans1);
+        Tcounter++;
+        transportadoras.put("TransportadoraPremium-"+ TPcounter, transP1);
+        TPcounter++;
+        utilizadores.put("Comprador-"+Ccounter, comp1);
+        Ccounter++;
+        Comprador comp2 = new Comprador();
+        utilizadores.put("Comprador-"+Ccounter, comp2);
+        artigos.put("Sapatilha-1", s1);
+
+        Dados d = new Dados(transportadoras, utilizadores, artigos, encomendas);
+        Parser.escreveFicheiro("objetos.ser", d);
+
+        Dados d2 = null;
+        d2 = Parser.lerFicheiro("objetos.ser");
+
     }
 }

@@ -2,9 +2,10 @@ package Utilizadores;
 
 import Artigos.Artigos;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Utilizador {
+public class Utilizador implements Serializable {
     private static int counter=0;
     private int id;
     private String email;

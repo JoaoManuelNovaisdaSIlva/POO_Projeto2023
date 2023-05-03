@@ -6,10 +6,12 @@ POO projeto coisas para fazer:
 	
 	. Na classe que vai juntar tudo -> ter Maps
 	. Nesta tb tem q haver um método que receba um barcode e devolva o artigo
-	. Definir variáveis globais do custo de expedição de cada tamanho de encomenda assim como os impostos
+	. Definir variáveis globais do custo de expedição de cada tamanho de encomenda assim como os impostos # FEITO
 
 
 	. Quando esta a ser definida uma entragadora esta pode escolher a formula default ou uma nova
+	. Fazer logins
+	. Visualizar dados (Admin?)
 
-- As entregadoras entregam a encomenda toda ou apenas os artigos?
+- As entregadoras entregam a encomenda toda ou apenas os artigos? ##
 - Ter a formula do preço de expediçao como static, para dps ser possivel mudar?

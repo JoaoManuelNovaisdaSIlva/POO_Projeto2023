@@ -3,12 +3,13 @@ package Encomendas;
 import Artigos.*;
 import Utilizadores.*;
 
+import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Encomenda {
+public class Encomenda implements Serializable {
     private Comprador comprador;
     private ArrayList<Artigos> artigos;
     private Dimenssao dimenssao; // <=1 artigos - pequena; >=2 & <=5 - media; >= 5 - grande
@@ -155,9 +156,9 @@ public class Encomenda {
     }
 
     public void devolucao(){
-        Duration duration = Duration.between(this.dataEntrega, LocalDateTime.now());
-        long horasPassadas = duration.toHours();
         if(this.estado == EstadoEncomenda.Entregue) {
+            Duration duration = Duration.between(this.dataEntrega, LocalDateTime.now());
+            long horasPassadas = duration.toHours();
             if (horasPassadas >= 48) {
                 System.out.println("Desculpe mas já passaram 48h desde a sua entrega, não pode devolver a encomenda!");
                 return;

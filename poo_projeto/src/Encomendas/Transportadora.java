@@ -2,13 +2,15 @@ package Encomendas;
 
 import Artigos.Artigos;
 import org.mvel.MVEL;
+
+import java.io.Serializable;
 import java.util.Map;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import java.util.*;
 
-public class Transportadora {
+public class Transportadora implements Serializable {
     static float valorExpedicaoPequena = 2.00f;
     static float valorExpedicaoMedia = 4.20f;
     static float getValorExpedicaoGrande = 6.00f;

@@ -2,10 +2,11 @@ package Artigos;
 
 import Encomendas.Transportadora;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Artigos {
+public class Artigos implements Serializable {
     private boolean isUsed; // Sim, é possivel haver um Artigo que seja Novo mas tenha os valores de usedState e numOfUsers, mas não importa porque depois nao vao ser usados
     private String description;
     private String barCode;
