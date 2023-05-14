@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Encomenda implements Serializable {
+    private static int counter = 0;
+    private int id;
     private Comprador comprador;
     private ArrayList<Artigos> artigos;
     private Dimenssao dimenssao; // <=1 artigos - pequena; >=2 & <=5 - media; >= 5 - grande
@@ -18,8 +20,11 @@ public class Encomenda implements Serializable {
     private EstadoEncomenda estado;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataEntrega;
+    private LocalDateTime ultimaAlteracao;
 
     public Encomenda(){
+        counter++;
+        this.id = counter;
         this.comprador = new Comprador();
         this.artigos = new ArrayList<>();
         this.dimenssao = Dimenssao.Pequeno;
@@ -28,9 +33,12 @@ public class Encomenda implements Serializable {
         this.estado = EstadoEncomenda.Pendente;
         this.dataCriacao = LocalDateTime.now();
         this.dataEntrega = null;
+        this.ultimaAlteracao = null;
     }
 
     public Encomenda(Comprador c, ArrayList<Artigos> artigos){
+        counter++;
+        this.id = counter;
         this.comprador = c;
         this.artigos = new ArrayList<>(artigos);
 
@@ -43,9 +51,12 @@ public class Encomenda implements Serializable {
         this.estado = EstadoEncomenda.Pendente;
         this.dataCriacao = LocalDateTime.now();
         this.dataEntrega = null;
+        this.ultimaAlteracao = null;
     }
 
     public Encomenda(Encomenda e){
+        counter++;
+        this.id = counter;
         this.comprador = e.comprador;
         this.artigos = new ArrayList<>(e.artigos);
         this.dimenssao = e.dimenssao;
@@ -53,7 +64,16 @@ public class Encomenda implements Serializable {
         this.custosExpedicao = e.custosExpedicao;
         this.estado = e.estado;
         this.dataCriacao = e.dataCriacao;
-        this.dataEntrega = null;
+        this.dataEntrega = e.dataEntrega;
+        this.ultimaAlteracao = e.ultimaAlteracao;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Comprador getComprador(){
@@ -120,6 +140,14 @@ public class Encomenda implements Serializable {
         this.dataEntrega = l;
     }
 
+    public LocalDateTime getUltimaAlteracao() {
+        return ultimaAlteracao;
+    }
+
+    public void setUltimaAlteracao(LocalDateTime ultimaAlteracao) {
+        this.ultimaAlteracao = ultimaAlteracao;
+    }
+
     public void adicionaArtigoAEncomenda(Artigos a){
         if(this.estado == EstadoEncomenda.Pendente) {
             this.artigos.add(a);
@@ -146,18 +174,19 @@ public class Encomenda implements Serializable {
         } else System.out.println("Não pode remover artigos à encomenda porque esta está no estado: " + this.estado);
     }
 
-    public void pagarEncomenda(){
+    public void pagarEncomenda(LocalDateTime tempo){
         if(this.estado == EstadoEncomenda.Pendente) {
             this.estado = EstadoEncomenda.Finalizada;
-            comprador.adicionarComprados(this.artigos);
+            this.ultimaAlteracao = tempo;
+            this.comprador.adicionarComprados(this.artigos);
             System.out.println("Valor a pagar: " + this.custosExpedicao);
             System.out.println("A sua encomenda foi paga com sucesso!");
         }else System.out.println("A sua encomenda já se encontra no estado: " + this.estado);
     }
 
-    public void devolucao(){
+    public void devolucao(LocalDateTime tempo){
         if(this.estado == EstadoEncomenda.Entregue) {
-            Duration duration = Duration.between(this.dataEntrega, LocalDateTime.now());
+            Duration duration = Duration.between(this.dataEntrega, tempo);
             long horasPassadas = duration.toHours();
             if (horasPassadas >= 48) {
                 System.out.println("Desculpe mas já passaram 48h desde a sua entrega, não pode devolver a encomenda!");
@@ -214,9 +243,9 @@ public class Encomenda implements Serializable {
         for(Transportadora t : custos.keySet()){
             if(t instanceof TransportadoraPremium){
                 TransportadoraPremium t1 = (TransportadoraPremium) t;
-                somaPrecoExpedicao += t1.calculaFormulaPremium(t1, custos.get(t));
-            }else if(t instanceof Transportadora){
-                somaPrecoExpedicao += t.calculaFormula(t, custos.get(t));
+                somaPrecoExpedicao += t1.calculaFormulaPremium(custos.get(t));
+            }else if(t != null){
+                somaPrecoExpedicao += t.calculaFormula(custos.get(t));
             }
         }
         return somaPrecoExpedicao;
@@ -238,9 +267,8 @@ public class Encomenda implements Serializable {
 
     @Override
     public String toString(){
-        return "Encomenda de: " + this.comprador + ";\nCom os seguintes artigos: " + this.artigos + ";\nDimenssão: " + this.dimenssao
-                + ";\nPreço final: " + this.precoProdutos + ";\nPreço de Expedição: " + custosExpedicao + ";\nEstado da encomenda: " + this.estado +
-                ";\nData de criação: " + this.dataCriacao + ";\nData de entrega: " + this.dataEntrega;
+        return "Encomenda id: " + this.id + " ; " + "Comprador: " + this.comprador.getNome() + " ; " + "Artigos: " + this.artigos + " ; " + "Preço final: "
+                + this.custosExpedicao + " ; " + "Estado: " + this.estado;
     }
 
     @Override
@@ -250,6 +278,6 @@ public class Encomenda implements Serializable {
 
         return this.comprador == ((Encomenda) o).comprador && this.artigos == ((Encomenda) o).artigos &&  this.dimenssao == ((Encomenda) o).dimenssao &&
                 this.precoProdutos == ((Encomenda) o).precoProdutos && this.estado == ((Encomenda) o).estado && this.dataCriacao == ((Encomenda) o).dataCriacao
-                && this.dataEntrega == ((Encomenda) o).dataEntrega;
+                && this.dataEntrega == ((Encomenda) o).dataEntrega && this.ultimaAlteracao == ((Encomenda) o).ultimaAlteracao;
     }
 }

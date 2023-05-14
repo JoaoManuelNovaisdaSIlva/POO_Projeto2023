@@ -10,7 +10,7 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import java.util.*;
 
-public class Transportadora implements Serializable {
+public class Transportadora implements Serializable, Comparable<Transportadora> {
     static float valorExpedicaoPequena = 2.00f;
     static float valorExpedicaoMedia = 4.20f;
     static float getValorExpedicaoGrande = 6.00f;
@@ -26,6 +26,7 @@ public class Transportadora implements Serializable {
     private float margemLucro;
     private TipoFormula tipoFormula;
     private String formula;
+    private float valorFaturado;
 
     public Transportadora(){
         counter++;
@@ -40,14 +41,26 @@ public class Transportadora implements Serializable {
         this.formula = "";
     }
 
-    public Transportadora(String nome, int nif, String email, ArrayList<Artigos> artigos, TipoFormula tipo, String formula){ // "" para default
+    public Transportadora(String nome, int nif, String email, float margemLucro, TipoFormula tipo, String formula){ // "" para default
+        counter++;
+        this.id = counter;
+        this.nome = nome;
+        this.nif = nif;
+        this.email = email;
+        this.artigosAssociados = new ArrayList<>();
+        this.margemLucro = margemLucro;
+        this.tipoFormula = tipo;
+        this.formula = formula;
+    }
+
+    public Transportadora(String nome, int nif, String email, ArrayList<Artigos> artigos, float margemLucro, TipoFormula tipo, String formula){ // "" para default
         counter++;
         this.id = counter;
         this.nome = nome;
         this.nif = nif;
         this.email = email;
         this.artigosAssociados = new ArrayList<>(artigos);
-        this.margemLucro = Math.round((1.01f + new Random().nextFloat() * (1.50f-1.01f)) * 100) / 100f; // numero aleatorio entre 1.01 e 1.50
+        this.margemLucro = margemLucro;
         this.tipoFormula = tipo;
         this.formula = formula;
     }
@@ -128,13 +141,19 @@ public class Transportadora implements Serializable {
         this.formula = formula;
     }
 
+    public float getValorFaturado() {
+        return valorFaturado;
+    }
 
+    public void setValorFaturado(float valorFaturado) {
+        this.valorFaturado = valorFaturado;
+    }
 
-    public float calculaFormula(Transportadora t, float preco){
-        if(t.tipoFormula == TipoFormula.Default){
+    public float calculaFormula(float preco){
+        if(this.tipoFormula == TipoFormula.Default){
             return calculaFormulaDefualt(preco);
         } else{
-            return  calculaFormulaCusomized(t.formula, preco);
+            return  calculaFormulaCusomized(this.formula, preco);
         }
     }
 
@@ -153,13 +172,23 @@ public class Transportadora implements Serializable {
 
         variables.put("preco", preco);
         variables.put("imposto", imposto);
+        variables.put("margem", margemLucro);
         return evaluateFormula(line, variables);
 
     }
 
+    public void adicionaArtigoAssociado(Artigos art){
+        this.artigosAssociados.add(art);
+    }
+
+    @Override
+    public int compareTo(Transportadora other){
+        return Float.compare(other.valorFaturado, this.valorFaturado);
+    }
+
     @Override
     public int hashCode(){
-        return Objects.hash(id, nome, nif, email, artigosAssociados, margemLucro, tipoFormula, formula);
+        return Objects.hash(id, nome, nif, email, margemLucro, tipoFormula, formula);
     }
 
     public Transportadora clone(){
@@ -168,8 +197,7 @@ public class Transportadora implements Serializable {
 
     @Override
     public String toString(){
-        return "Transportadora: " + nome + ";\nId: " + id + ";\nNif: " + nif + ";\nEmail: " + email + ";\nArtigos Associados: " + artigosAssociados +
-                ";\nMargem de lucro: " + margemLucro + ";\nTipo de formula: " + tipoFormula + ";\nFormula: " + formula;
+        return "Transportadora: " + nome + " ; " + "Id: " + id + " ; " + "Formula: " + formula;
     }
 
     @Override

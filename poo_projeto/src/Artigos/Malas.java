@@ -10,8 +10,8 @@ public class Malas extends Artigos{
     private TexturaMala texture;
     private int collectionYear;
 
-    public Malas(boolean used, String desc, float price, float discount, Estado state, int numUsers, Transportadora t, Dimenssao dimensions, TexturaMala texture, int collectionYear) {
-        super(used, desc, price, discount, state, numUsers, t);
+    public Malas(boolean used, String desc, float price, float discount, Estado state, int numUsers, Transportadora t, int stock, Dimenssao dimensions, TexturaMala texture, int collectionYear) {
+        super(used, desc, price, discount, state, numUsers, t, stock);
         this.dimensions = dimensions;
         this.texture = texture;
         this.collectionYear = collectionYear;
@@ -48,6 +48,14 @@ public class Malas extends Artigos{
         this.collectionYear = collectionYear;
     }
 
+    public void atualizaPrecoDesconto(int currentYear){
+        if(this.getIsUsed()){
+            float newDiscount = (this.getDicountPrice() + (this.getDicountPrice()*0.05f*(currentYear-this.collectionYear)));
+            if(newDiscount > this.getPrice()) System.out.println("As sapatilhas não podem ter mais disconto!");
+            else this.setDicountPrice(newDiscount);
+        }else System.out.println("O artigo não é usado logo não aumenta o desconto");
+    }
+
     @Override
     public int hashCode(){
         return Objects.hash(super.hashCode(),dimensions, texture, collectionYear);
@@ -58,7 +66,7 @@ public class Malas extends Artigos{
     }
     @Override
     public String toString(){
-        return super.toString() + "; Dimensão da Mala: " + dimensions + "; Textura: " + texture + "; Ano de coleção: " + collectionYear;
+        return super.toString() + "Mala do ano de coleção: " + this.collectionYear + " --> ";
     }
 
     public boolean equals(Object o){

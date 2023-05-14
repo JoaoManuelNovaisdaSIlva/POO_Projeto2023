@@ -1,12 +1,13 @@
 package Artigos;
 
 import Encomendas.Transportadora;
+import Utilizadores.Vendedor;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Artigos implements Serializable {
+public class Artigos implements Serializable{
     private boolean isUsed; // Sim, é possivel haver um Artigo que seja Novo mas tenha os valores de usedState e numOfUsers, mas não importa porque depois nao vao ser usados
     private String description;
     private String barCode;
@@ -15,8 +16,9 @@ public class Artigos implements Serializable {
     private Estado usedState;
     private int numOfUsers;
     private Transportadora transportadoraAssociada;
+    private int stock;
 
-    public Artigos(boolean used, String desc, float price, float discount, Estado state, int numUsers, Transportadora t){
+    public Artigos(boolean used, String desc, float price, float discount, Estado state, int numUsers, Transportadora t, int stock){
         this.isUsed = used;
         this.description = desc;
         this.barCode = Integer.toString(this.hashCode()); // Gerar uma string unica a partir do hascode do objeto
@@ -29,6 +31,7 @@ public class Artigos implements Serializable {
         this.usedState = state;
         this.numOfUsers = numUsers;
         this.transportadoraAssociada = t;
+        this.stock = stock;
     }
 
     public Artigos(Artigos a){
@@ -40,6 +43,7 @@ public class Artigos implements Serializable {
         this.usedState = a.usedState;
         this.numOfUsers = a.numOfUsers;
         this.transportadoraAssociada = a.transportadoraAssociada;
+        this.stock = a.stock;
     }
 
     public boolean getIsUsed(){
@@ -106,9 +110,16 @@ public class Artigos implements Serializable {
         this.transportadoraAssociada = t;
     }
 
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
     @Override
     public int hashCode(){
-        return Objects.hash(isUsed, description, barCode, price, discountPrice, usedState, numOfUsers, transportadoraAssociada);
+        return Objects.hash(isUsed, description, barCode, price, discountPrice, usedState, numOfUsers);
     }
     @Override
     public Artigos clone(){
@@ -116,7 +127,7 @@ public class Artigos implements Serializable {
     }
     @Override
     public String toString(){
-        return "{Artigo é usado: " + isUsed + ";\nDescrição: " + description + ";\nCódigo de barras: " + barCode + ";\nPreço: " + price + ";\nPreço com desconto: " + discountPrice + ";\nEstado: " + usedState + ";\nNúmero de Utilizadores:  " + numOfUsers + ";\nTransportadora: " + transportadoraAssociada + "}";
+        return "Codigo de barras: " + this.barCode + " ; " + "Preço: " + this.price + " ; " + "Transportadora : " + this.transportadoraAssociada + " ; " + "Stock: " + this.stock + " --> ";
     }
     @Override
     public boolean equals(Object o){

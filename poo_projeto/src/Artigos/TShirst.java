@@ -8,8 +8,8 @@ public class TShirst extends Artigos{
     private TamanhoTShirt size;
     private PadraoTShirt pattern;
     // discout deve vir ja com o valor certo!!!!
-    public TShirst(boolean used, String desc, float price, float discount, Estado state, int numUsers, Transportadora t, TamanhoTShirt size, PadraoTShirt pattern) {
-        super(used, desc, price, discount, state, numUsers, t);
+    public TShirst(boolean used, String desc, float price, float discount, Estado state, int numUsers, Transportadora t, int stock, TamanhoTShirt size, PadraoTShirt pattern) {
+        super(used, desc, price, discount, state, numUsers, t, stock);
         this.size = size;
         this.pattern = pattern;
     }
@@ -46,7 +46,7 @@ public class TShirst extends Artigos{
     }
     @Override
     public String toString(){
-        return super.toString() + "; T-shirt de tamanho: " + size + "; Padrão: " + pattern;
+        return super.toString() + "T-shirt de tamanho: " + size;
     }
 
     public boolean equals(Object o){

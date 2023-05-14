@@ -4,9 +4,10 @@ import Artigos.Artigos;
 
 import java.util.ArrayList;
 
-public class Vendedor extends Utilizador{
+public class Vendedor extends Utilizador implements Comparable<Vendedor>{
     private ArrayList<Artigos> emVenda;
     private ArrayList<Artigos> vendidos;
+    private float valorFaturado;
 
     public Vendedor(){
         super();
@@ -53,13 +54,38 @@ public class Vendedor extends Utilizador{
         this.vendidos = new ArrayList<>(vendidos);
     }
 
+    public float getValorFaturado() {
+        return valorFaturado;
+    }
+
+    public void setValorFaturado(float valorFaturado) {
+        this.valorFaturado = valorFaturado;
+    }
+
+    public void adicionaArtigoEmVenda(Artigos art){
+        this.emVenda.add(art);
+    }
+
+    public void adicionaArtigoVendido(Artigos art){
+        this.vendidos.add(art);
+    }
+
+    public void removerArtigoVendido(Artigos art){
+        this.vendidos.remove(art);
+    }
+
+    @Override
+    public int compareTo(Vendedor other){
+        return Float.compare(other.getValorFaturado(), this.valorFaturado);
+    }
+
     public Utilizador clone(){
         return new Vendedor(this);
     }
 
     @Override
     public String toString(){
-        return super.toString() + "Items em venda: " + emVenda + ";\nItems vendidos: " + vendidos;
+        return super.toString() + "Comprador com " + "Items em venda: " + emVenda + " ; " + "Items vendidos: " + vendidos;
     }
 
     @Override

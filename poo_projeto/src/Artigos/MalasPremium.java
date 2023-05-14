@@ -8,8 +8,8 @@ import java.util.Objects;
 public class MalasPremium extends Malas{
     private String author;
 
-    public MalasPremium(boolean used, String desc, float price, float discount, Estado state, int numUsers, Dimenssao dimensions, TexturaMala texture, int collectionYear, TransportadoraPremium t, String author) {
-        super(used, desc, price, discount, state, numUsers, t, dimensions, texture, collectionYear);
+    public MalasPremium(boolean used, String desc, float price, float discount, Estado state, int numUsers, Dimenssao dimensions, TexturaMala texture, int collectionYear, TransportadoraPremium t, int stock, String author) {
+        super(used, desc, price, discount, state, numUsers, t, stock, dimensions, texture, collectionYear);
         this.author = author;
     }
 
@@ -26,16 +26,16 @@ public class MalasPremium extends Malas{
         this.author = author;
     }
 
-    public void atualizaPrecoMalasPremium(MalasPremium m, int currentYear){
-        float newPrice = m.getPrice();
-        if(m.getDimensions() == Dimenssao.Pequeno){
-            newPrice = (m.getPrice() + (m.getPrice()*0.05f*(currentYear- m.getCollectionYear())));
-        }else if (m.getDimensions() == Dimenssao.Medio){
-            newPrice = (m.getPrice() + (m.getPrice()*0.10f*(currentYear- m.getCollectionYear())));
-        }else if (m.getDimensions() == Dimenssao.Grande){
-            newPrice = (m.getPrice() + (m.getPrice()*0.20f*(currentYear- m.getCollectionYear())));
+    public void atualizaPrecoMalasPremium(int currentYear){
+        float newPrice = this.getPrice();
+        if(this.getDimensions() == Dimenssao.Pequeno){
+            newPrice = (this.getPrice() + (this.getPrice()*0.05f*(currentYear- this.getCollectionYear())));
+        }else if (this.getDimensions() == Dimenssao.Medio){
+            newPrice = (this.getPrice() + (this.getPrice()*0.10f*(currentYear- this.getCollectionYear())));
+        }else if (this.getDimensions() == Dimenssao.Grande){
+            newPrice = (this.getPrice() + (this.getPrice()*0.20f*(currentYear- this.getCollectionYear())));
         }
-        m.setPrice(newPrice);
+        this.setPrice(newPrice);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class MalasPremium extends Malas{
     }
     @Override
     public String toString(){
-        return super.toString() + "; Mala premium com autor: " + author;
+        return super.toString() + "Mala Premium com autor: " + author;
     }
 
     public boolean equals(Object o){

@@ -1,9 +1,6 @@
 package Utilizadores;
 
-import Artigos.Artigos;
-
 import java.io.Serializable;
-import java.util.Objects;
 
 public class Utilizador implements Serializable {
     private static int counter=0;
@@ -86,7 +83,7 @@ public class Utilizador implements Serializable {
 
     @Override
     public String toString(){
-        return "{Utilizador : " + id + ";\nEmail: " + email + ";\nNome: " + nome + ";\nMorada: " + morada + ";\nNif: " + nif + "}";
+        return "Utilizador id: " + this.id + " ; " + "Nome: " + this.nome + " ; ";
     }
 
     @Override

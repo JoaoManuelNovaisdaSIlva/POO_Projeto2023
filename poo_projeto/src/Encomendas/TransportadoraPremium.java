@@ -11,8 +11,13 @@ public class TransportadoraPremium extends Transportadora{
 
     private String formulaPremium;
 
-    public TransportadoraPremium(String nome, int nif, String email, ArrayList<Artigos> artigos, TipoFormula tipo, String formula, String formulaPremium){
-        super(nome, nif, email, artigos, tipo, formula);
+    public TransportadoraPremium(String nome, int nif, String email, float margem, TipoFormula tipo, String formula, String formulaPremium){
+        super(nome, nif, email, margem, tipo, formula);
+        this.formulaPremium = formulaPremium;
+    }
+
+    public TransportadoraPremium(String nome, int nif, String email, ArrayList<Artigos> artigos, float margem, TipoFormula tipo, String formula, String formulaPremium){
+        super(nome, nif, email, artigos, margem, tipo, formula);
         this.formulaPremium = formulaPremium;
     }
 
@@ -29,11 +34,11 @@ public class TransportadoraPremium extends Transportadora{
         this.formulaPremium = formula;
     }
 
-    public float calculaFormulaPremium(TransportadoraPremium t, float preco){
+    public float calculaFormulaPremium(float preco){
         if(super.getTipoFormula() == TipoFormula.Default){
             return calculaFormulaDefualtPremium(preco);
         } else{
-            return  calculaFormulaCusomizedPremium(t.formulaPremium, preco);
+            return  calculaFormulaCusomizedPremium(this.formulaPremium, preco);
         }
     }
 
@@ -51,8 +56,9 @@ public class TransportadoraPremium extends Transportadora{
 
         variables.put("preco", preco);
         variables.put("imposto", imposto);
+        variables.put("margem", getMargemLucro());
         variables.put("impostoPremium", impostoPremium);
-        return evaluateFormula(line, variables);
+        return evaluateFormulaPremium(line, variables);
 
     }
 

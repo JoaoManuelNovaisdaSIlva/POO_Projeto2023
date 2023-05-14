@@ -8,8 +8,8 @@ import java.util.Objects;
 public class SapatilhasPremium extends Sapatilhas{
     private String authors;
 
-    public SapatilhasPremium(boolean used, String desc, float price, float discount, Estado state, int numUsers, TransportadoraPremium t, int size, boolean laces, String colour, int year, String authors) {
-        super(used, desc, price, discount, state, numUsers, t, size, laces, colour, year);
+    public SapatilhasPremium(boolean used, String desc, float price, float discount, Estado state, int numUsers, TransportadoraPremium t, int stock, int size, boolean laces, String colour, int year, String authors) {
+        super(used, desc, price, discount, state, numUsers, t, stock, size, laces, colour, year);
         this.authors = authors;
     }
 
@@ -26,9 +26,9 @@ public class SapatilhasPremium extends Sapatilhas{
         this.authors = au;
     }
 
-    public void atualizarPrecoSapatilhasPremium(SapatilhasPremium s, int currentYear){
-        float newPrice = (s.getPrice() + (s.getPrice()*0.10f*(currentYear- s.getCollectionYear())));
-        s.setPrice(newPrice);
+    public void atualizarPrecoSapatilhasPremium(int currentYear){
+        float newPrice = (this.getPrice() + (this.getPrice()*0.10f*(currentYear- this.getCollectionYear())));
+        this.setPrice(newPrice);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class SapatilhasPremium extends Sapatilhas{
     }
     @Override
     public String toString(){
-        return super.toString() + "; Sapatilha premium com autor: " + authors;
+        return super.toString() + "Sapatilha premium com autor: " + authors;
     }
 
     public boolean equals(Object o){

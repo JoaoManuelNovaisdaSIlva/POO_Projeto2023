@@ -10,8 +10,8 @@ public class Sapatilhas extends Artigos{
     private String color;
     private int collectionYear;
 
-    public Sapatilhas(boolean used, String desc, float price, float discount, Estado state, int numUsers, Transportadora t, int size, boolean laces, String colour, int year){
-        super(used, desc, price, discount, state, numUsers, t);
+    public Sapatilhas(boolean used, String desc, float price, float discount, Estado state, int numUsers, Transportadora t, int stock, int size, boolean laces, String colour, int year){
+        super(used, desc, price, discount, state, numUsers, t, stock);
         this.shoeSize = size;
         this.hasLaces = laces;
         this.color = colour;
@@ -58,11 +58,11 @@ public class Sapatilhas extends Artigos{
         this.collectionYear = collectionYear;
     }
 
-    public void atualizaPrecoDesconto(Sapatilhas s, int currentYear){
-        if(s.getIsUsed()){
-            float newDiscount = (s.getDicountPrice() + (s.getDicountPrice()*0.05f*(currentYear-s.collectionYear)));
-            if(newDiscount > s.getPrice()) System.out.println("As sapatilhas não podem ter mais disconto!");
-            else s.setDicountPrice(newDiscount);
+    public void atualizaPrecoDesconto(int currentYear){
+        if(this.getIsUsed()){
+            float newDiscount = (this.getDicountPrice() + (this.getDicountPrice()*0.05f*(currentYear-this.collectionYear)));
+            if(newDiscount > this.getPrice()) System.out.println("As sapatilhas não podem ter mais disconto!");
+            else this.setDicountPrice(newDiscount);
         }else System.out.println("O artigo não é usado logo não aumenta o desconto");
     }
 
@@ -76,7 +76,7 @@ public class Sapatilhas extends Artigos{
     }
     @Override
     public String toString(){
-        return super.toString() + "Sapatilha de Tamanho: " + shoeSize + "; Com atacadores: " + hasLaces + "; Cor: " + color + "; Coleção do ano: " + collectionYear;
+        return super.toString() + "Sapatilha do ano de coleção: " + this.collectionYear + " --> ";
     }
 
     public boolean equals(Object o){
